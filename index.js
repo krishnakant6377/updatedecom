@@ -14,4 +14,4 @@ app.use(cors({
     origin:"*"
 }))
 app.use("/auth",route)
-app.listen(4040,()=>{console.log("running")})
+app.listen(8000,()=>{console.log("running")})
