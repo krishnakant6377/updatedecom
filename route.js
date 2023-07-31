@@ -4,6 +4,7 @@ const bcrypt=require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const usermodel=require("./model.js")
 route.post("/register",async (req,res)=>{
+    try{
     const {email,password}=req.body
     const user=await usermodel.findOne({email})
     if(user){
@@ -15,12 +16,15 @@ route.post("/register",async (req,res)=>{
     await newuser.save()
     return res.json({
         message:"user registered successfully"
-    })
+    })}
+    catch(err){
+        console.log(err)}
 
 
 
 })
 route.post("/login",async (req,res)=>{
+    try{
     const {email,password}=req.body
     const user=await usermodel.findOne({email})
     if(!user){
@@ -33,7 +37,8 @@ if(!vpass){
 return res.json({message:"incorrect password"})
 }
 const token = jwt.sign({ id: user._id }, "secretkey");
-    res.json({ token, userId: user._id })
+    res.json({ token, userId: user._id })} catch(err){
+        console.log(err)}
 
 
 
